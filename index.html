@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="only dark">
+  <title>Chaotic Sandbox: Environmental Controls Edition</title>
+  <link rel="stylesheet" href="style.css?v=4">
+</head>
+
+<body>
+  <div id="ui-layer">
+    <div class="panel-header" id="panelHeader">
+      <h2>SIMULATION SETTINGS</h2>
+      <span class="toggle-icon" id="toggleIcon">▲</span>
+    </div>
+
+    <div class="tab-header">
+      <div class="tab-btn active" id="tabLiveBtn">CONTROLS</div>
+      <div class="tab-btn" id="tabAnglesBtn">INITIAL CONDITIONS</div>
+      <div class="tab-btn" id="tabEnvBtn">ENVIRONMENT</div>
+      <div class="tab-btn" id="tabGuideBtn">GUIDE</div>
+    </div>
+
+    <div class="panel-body">
+      <button id="actionBtn" class="mode-btn">🚀 RELEASE PENDULUM</button>
+
+      <div id="pageControls">
+        <p>Toggle advanced runtime modifiers for the simulation below.</p>
+
+        <button id="butterflyBtn" class="mode-btn">Butterfly Mode: OFF</button>
+        <button id="frictionBtn" class="mode-btn">Friction: OFF</button>
+        <button id="audioBtn" class="mode-btn">Audio: OFF</button>
+
+        <div class="control-group" id="butterflyControls" style="display: none; border-bottom: none;">
+          <label style="color: #ff9900;">PARALLEL UNIVERSES</label>
+          <div class="ratio-display" id="butterflyCountTxt" style="color: #ff9900;">2 SYSTEMS</div>
+
+          <div class="slider-row" style="margin-top: 5px;">
+            <span style="width: auto; margin-right: 5px;">Instances</span>
+            <div class="slider-container">
+              <input type="range" id="butterflyCountSlider" min="2" max="5" step="1" value="2" style="accent-color: #ff9900;">
+              <div class="slider-ticks" data-ticks="4"></div>
+            </div>
+          </div>
+
+          <div class="slider-row" style="margin-top: 5px;">
+            <span style="width: auto; margin-right: 5px; color: #ff9900;">Separation</span>
+            <div class="slider-container">
+              <input type="range" id="separationSlider" min="0" max="150" step="1" value="0" style="accent-color: #ff9900;">
+            </div>
+          </div>
+
+          <button id="toggleTrailsBtn" class="mode-btn active">Trails: ON</button>
+        </div>
+      </div>
+
+      <div id="pageAngles" style="display: none;">
+        <p>Configure structural variables and starting angles before releasing.</p>
+
+        <div class="control-group">
+          <label>ARM COMPLEXITY</label>
+          <div class="ratio-display" id="pendulumCountTxt" style="color: #00e5ff;">2 ARMS</div>
+          <div class="slider-row" style="margin-top: 5px;">
+            <span style="width: auto; margin-right: 5px;">Count</span>
+            <div class="slider-container">
+              <input type="range" id="pendulumCountSlider" min="1" max="4" step="1" value="2">
+              <div class="slider-ticks" data-ticks="4"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label>MASS RATIOS (Max 1:5)</label>
+          <div class="ratio-display" id="massRatioTxt">1 : 1</div>
+          <div class="slider-row" id="m1-row"><span>Bob 1</span>
+            <div class="slider-container"><input type="range" id="m1" min="1" max="5" value="1">
+              <div class="slider-ticks" data-ticks="5"></div>
+            </div>
+          </div>
+          <div class="slider-row" id="m2-row"><span>Bob 2</span>
+            <div class="slider-container"><input type="range" id="m2" min="1" max="5" value="1">
+              <div class="slider-ticks" data-ticks="5"></div>
+            </div>
+          </div>
+          <div class="slider-row" id="m3-row" style="display:none;"><span>Bob 3</span>
+            <div class="slider-container"><input type="range" id="m3" min="1" max="5" value="1">
+              <div class="slider-ticks" data-ticks="5"></div>
+            </div>
+          </div>
+          <div class="slider-row" id="m4-row" style="display:none;"><span>Bob 4</span>
+            <div class="slider-container"><input type="range" id="m4" min="1" max="5" value="1">
+              <div class="slider-ticks" data-ticks="5"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label>LENGTH RATIOS (Max 1:5)</label>
+          <div class="ratio-display" id="lenRatioTxt">1 : 1</div>
+          <div class="slider-row" id="l1-row"><span>Arm 1</span>
+            <div class="slider-container"><input type="range" id="l1" min="1" max="5" value="1">
+              <div class="slider-ticks" data-ticks="5"></div>
+            </div>
+          </div>
+          <div class="slider-row" id="l2-row"><span>Arm 2</span>
+            <div class="slider-container"><input type="range" id="l2" min="1" max="5" value="1">
+              <div class="slider-ticks" data-ticks="5"></div>
+            </div>
+          </div>
+          <div class="slider-row" id="l3-row" style="display:none;"><span>Arm 3</span>
+            <div class="slider-container"><input type="range" id="l3" min="1" max="5" value="1">
+              <div class="slider-ticks" data-ticks="5"></div>
+            </div>
+          </div>
+          <div class="slider-row" id="l4-row" style="display:none;"><span>Arm 4</span>
+            <div class="slider-container"><input type="range" id="l4" min="1" max="5" value="1">
+              <div class="slider-ticks" data-ticks="5"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label>LAST BOB STARTING VELOCITY</label>
+          <div class="ratio-display" id="velTxt">0.0 m/s</div>
+          <div class="slider-row">
+            <span>Linear Kick</span>
+            <div class="slider-container">
+              <input type="range" id="initLinearVel" min="-6.0" max="6.0" step="0.2" value="0">
+            </div>
+          </div>
+        </div>
+
+        <div id="angleControlContainer"></div>
+      </div>
+
+      <div id="pageEnv" style="display: none;">
+        <p>Alter the fundamental constants governing the physics engine.</p>
+        <div class="control-group" style="border-bottom: none;">
+          <label>GRAVITATIONAL ACCELERATION</label>
+          <div class="ratio-display" id="gravityTxt">9.81 m/s²</div>
+          <div class="slider-row" style="margin-top: 5px;">
+            <span>Gravity</span>
+            <div class="slider-container">
+              <input type="range" id="gravitySlider" min="1" max="25" step="0.01" value="9.81">
+            </div>
+          </div>
+
+          <div class="preset-grid">
+            <button class="mode-btn preset-btn" data-g="1.62">🌕 Moon</button>
+            <button class="mode-btn preset-btn" data-g="3.72">🔴 Mars</button>
+            <button class="mode-btn preset-btn" data-g="9.81">🌍 Earth</button>
+            <button class="mode-btn preset-btn" data-g="24.79">🪐 Jupiter</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="pageGuide" style="display: none;">
+        <div class="control-group">
+          <label>KEYBOARD SHORTCUTS</label>
+          <div class="guide-row"><span class="guide-key">Space</span><span>Release / pause simulation</span></div>
+          <div class="guide-row"><span class="guide-key">B</span><span>Toggle Butterfly Mode</span></div>
+          <div class="guide-row"><span class="guide-key">F</span><span>Toggle Friction</span></div>
+          <div class="guide-row"><span class="guide-key">A</span><span>Toggle Audio</span></div>
+        </div>
+
+        <div class="control-group">
+          <label>MOUSE &amp; TOUCH</label>
+          <div class="guide-row"><span class="guide-key">Drag</span><span>Reposition pendulum (pre-release)</span></div>
+          <div class="guide-row"><span class="guide-key">Scroll</span><span>Zoom in / out (0.5× – 2×)</span></div>
+        </div>
+
+        <div class="control-group">
+          <label>TELEMETRY GRAPHS</label>
+          <div class="guide-row"><span class="guide-key">Energy</span><span>KE / PE / Total energy over time</span></div>
+          <div class="guide-row"><span class="guide-key">Config</span><span>Phase space trajectory (θ₁ vs θ₂)</span></div>
+          <div class="guide-row"><span class="guide-key">FPS</span><span>Real-time frame rate counter</span></div>
+          <div class="guide-row"><span class="guide-key">Lyapunov</span><span>Chaos divergence (Butterfly Mode only)</span></div>
+        </div>
+
+        <div class="control-group" style="border-bottom: none;">
+          <label>SIMULATION MODES</label>
+          <div class="guide-row"><span class="guide-key">Butterfly</span><span>Run parallel universes with tiny initial offsets to visualise chaotic divergence</span></div>
+          <div class="guide-row"><span class="guide-key">Friction</span><span>Apply angular damping to all joints</span></div>
+          <div class="guide-row"><span class="guide-key">Audio</span><span>Pitch-mapped sonification of tip velocity</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="telemetry-control">
+    <div id="telemetry-dropdown">
+      <div class="telem-label">TELEMETRY CONTROLS</div>
+      <div class="telem-row" id="rowEnergy">
+        <div class="telem-pip on" id="pipEnergy"></div>
+        <span>Energy Graph</span>
+      </div>
+      <div class="telem-row" id="rowConfigSpace">
+        <div class="telem-pip on" id="pipConfigSpace"></div>
+        <span>Config Space</span>
+      </div>
+      <div class="telem-row" id="rowFps">
+        <div class="telem-pip on" id="pipFps"></div>
+        <span>FPS Counter</span>
+      </div>
+      <div class="telem-row telem-row-butterfly" id="rowLyapunov">
+        <div class="telem-pip on" id="pipLyapunov"></div>
+        <span>Lyapunov (Butterfly)</span>
+      </div>
+    </div>
+    <button id="telemetryBtn">TELEMETRY ▲</button>
+  </div>
+
+  <div id="butterfly-panel">
+    <h3>Butterfly Effect Active</h3>
+    <p>Multiple identical systems are running side-by-side. Each parallel instance was seeded with a microscopic angular divergence offset.</p>
+    <div id="colorLegends"></div>
+  </div>
+
+  <canvas id="canvas"></canvas>
+
+  <script src="script.js?v=11"></script>
+</body>
+
+</html>
